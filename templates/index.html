@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Resume Parser</title>
+</head>
+<body>
+    <h1>Resume Parser</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="resume" accept=".pdf,.doc,.docx,.txt">
+        <input type="submit" value="Upload">
+    </form>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    {% if data %}
+    <h2>Extracted Details</h2>
+    <ul>
+        <li><strong>Name:</strong> {{ data['Name'] }}</li>
+        <li><strong>Phone Numbers:</strong> {{ data['Phone Numbers'] | join(", ") }}</li>
+        <li><strong>Emails:</strong> {{ data['Emails'] | join(", ") }}</li>
+        <li><strong>Experience:</strong> {{ data['Experience'] }}</li>
+        <li><strong>Technical Skills:</strong> {{ data['Technical Skills'] }}</li>
+        <li><strong>Education:</strong> {{ data['Education'] }}</li>
+    </ul>
+    {% endif %}
+</body>
+</html>
